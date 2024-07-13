@@ -32,6 +32,7 @@ module my_addrx::MessagesCommucntion
 
     public entry fun send_message(from: &signer , to: address , msg: vector<u8>) acquires MessageStore
     {
+   
         let ms = borrow_global_mut<MessageStore>(to);
         vector::push_back(&mut ms.messages, Message{
             from: signer::address_of(from),
@@ -39,15 +40,6 @@ module my_addrx::MessagesCommucntion
         });
 
     } 
-
-    fun checkin(a: u64 , b: u64)
-    {
-
-    }
-
-
-
-
 
 
 
