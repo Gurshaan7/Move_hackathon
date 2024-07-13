@@ -1,0 +1,12 @@
+ [package]
+name = "nft-testing"
+version = "0.0.1"
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework", rev = "mainnet" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-token", rev = "mainnet" }
+AptosTokenObjects = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-token-objects", rev = "mainnet" }
+
+[addresses]
+my_addrx = "0xfdb3fb5c45b7bf6febf4c1dfcfa6dbc6c3c0803cae36df71db80ba4a9562d0b8"
+std = "0x1"
