@@ -4,10 +4,13 @@ module my_addrx::MessagesCommucntion
     use std::signer;
     use aptos_framework::account;
     use std::vector;
+    use std::option;
+    use std::timestamp;
 
-    struct Message has store
+
+    struct Message has store , copy
     {
-        from: address,
+        timestamp: u64,
         payload: vector<u8>
     }
 
@@ -35,11 +38,35 @@ module my_addrx::MessagesCommucntion
    
         let ms = borrow_global_mut<MessageStore>(to);
         vector::push_back(&mut ms.messages, Message{
-            from: signer::address_of(from),
+            timestamp: timestamp::now_seconds(),
             payload: msg
         });
 
     } 
+
+    #[view]
+    public fun get_messages(user: address , start: u64, end: option::Option<u64>): vector<Message> acquires MessageStore
+    {
+        if(!exists<MessageStore>(user))
+        {
+            return vector::empty()
+        };
+
+        let ms = borrow_global_mut<MessageStore>(user);
+
+        let end_index = vector::length(&ms.messages);
+
+
+        if (option::is_some(&end))
+        {
+            end_index = option::extract(&mut end);
+        };
+        option::destroy_none(end);
+
+        vector::slice(&ms.messages , start , end_index )
+
+    }
+
 
 
 
